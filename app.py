@@ -1,28 +1,14 @@
 from flask import Flask
+from flask_restful import Api
+
+from resources.recipe import RecipeListResource, RecipeResource, RecipePublishResource
 
 app = Flask(__name__)
+api = Api(app)
 
-
-@app.route('/test')
-def test():
-    return 'Hola Test'
-
-@app.route('/primer_html')
-def primer_html():
-   return '''
-
-    <html>
-        <body>
-        <h1>Flask</h1>
-        </body>
-    </html>
-
-   '''
-
-@app.route('/')
-def hello_world():
-    return 'Hola Flask 1.1.1 , desde el contendor!'
-
+api.add_resource(RecipeListResource, '/recipes')
+api.add_resource(RecipeResource, '/recipes/<int:recipe_id>')
+api.add_resource(RecipePublishResource, '/recipes/<int:recipe_id>/publish')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(port=5000, debug=True)
