@@ -4,11 +4,13 @@ WORKDIR /app
 
 EXPOSE 8080
 
-ENV NAME World
-
-CMD ["python", "app.py"]
-
 ADD requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
+ADD models/* /app/models/
+ADD resources/* /app/resources/
+
 
 ADD app.py /app/app.py
+
+
+CMD ["python", "app.py"]
