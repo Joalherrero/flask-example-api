@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    # This is the pod template
+    spec:
+      containers:
+      - name: flask
+        image: joalherrero/flask-example-api:latest
+        #command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+        command: ['python', 'app.py']
+      restartPolicy: Always
+    # The pod template ends here
